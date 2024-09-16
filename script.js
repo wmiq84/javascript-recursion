@@ -5,26 +5,38 @@ function generateFibonacci(num) {
 	return generateFibonacci(num - 1) + generateFibonacci(num - 2);
 }
 
-function mergeSort(array) {
-	let emptyArray = [];
-	let leftArray = [];
-	let rightArray = [];
+console.log(generateFibonacci(13));
 
-	if (leftArray.length === 1 && rightArray.length === 1) {
-		emptyArray.push(newArray);
-		emptyArray.sort((a, b) => {
-			return a - b;
-		});
+function mergeSort(array) {
+	if (array.length === 1) {
+		return array;
 	}
 
-	leftArray = array.slice(0, array.length / 2);
-	rightArray = array.slice(array.length / 2);
+	const midpoint = Math.floor(array.length / 2);
+	const leftArray = array.slice(0, midpoint);
+	const rightArray = array.slice(midpoint);
 
-	console.log(leftArray);
-	console.log(rightArray);
+	return merge(mergeSort(leftArray), mergeSort(rightArray));
+}
 
-	return
-	// return (newArray = array.slice(newArray.length / 2));
+function merge(left, right) {
+	let resultArray = [],
+		leftIndex = 0,
+		rightIndex = 0;
+
+	while (leftIndex < left.length && rightIndex < right.length) {
+		if (left[leftIndex] < right[rightIndex]) {
+			resultArray.push(left[leftIndex]);
+			leftIndex++;
+		} else {
+			resultArray.push(right[rightIndex]);
+			rightIndex++;
+		}
+	}
+
+	return resultArray
+		.concat(left.slice(leftIndex))
+		.concat(right.slice(rightIndex));
 }
 
 console.log(mergeSort([0, 2, 3, 4, 6, 4, 7, 9, 1]));
